@@ -1,0 +1,26 @@
+{
+	"id": "kxwell-ptz",
+	"name": "kxwell-ptz",
+	"shortname": "kxwell-ptz",
+	"description": "Controls KXWell PTZ cameras over IP",
+	"version": "0.0.0",
+	"license": "MIT",
+	"repository": "git+https://github.com/josephdadams/companion-module-kxwell-ptz.git",
+	"bugs": "https://github.com/josephdadams/companion-module-kxwell-ptz/issues",
+	"maintainers": [
+		{
+			"name": "Joseph Adams",
+			"email": "joseph@josephadams.dev"
+		}
+	],
+	"legacyIds": [],
+	"runtime": {
+		"type": "node22",
+		"api": "nodejs-ipc",
+		"apiVersion": "0.0.0",
+		"entrypoint": "../dist/main.js"
+	},
+	"manufacturer": "KXWell",
+	"products": ["PTZ Camera"],
+	"keywords": ["ptz", "camera", "control"]
+}
