@@ -1,11 +1,6 @@
 import { CompanionActionDefinitions } from '@companion-module/base'
 import type { KXWellInstance } from './main.js'
-import { SendCommand } from './api.js'
-
-function twoDigit(val: number): string {
-	val = Math.max(1, Math.min(99, val))
-	return val.toString().padStart(2, '0')
-}
+import { twoDigit, SendCommand } from './api.js'
 
 export function UpdateActions(self: KXWellInstance): void {
 	const actions: CompanionActionDefinitions = {}
@@ -35,9 +30,9 @@ export function UpdateActions(self: KXWellInstance): void {
 				type: 'number',
 				id: 'speed',
 				label: 'Speed (1-49)',
-				default: 70,
-				min: 51,
-				max: 99,
+				default: 30,
+				min: 1,
+				max: 49,
 			},
 		],
 		callback: async (action) => {

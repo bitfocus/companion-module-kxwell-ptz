@@ -39,7 +39,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			width: 4,
 			label: 'Camera Address',
 			default: 1,
-			min: 1,
+			min: 0,
 			max: 255,
 			required: true,
 		},

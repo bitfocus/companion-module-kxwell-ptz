@@ -3,7 +3,7 @@ import type { KXWellInstance } from './main.js'
 
 export async function InitConnection(self: KXWellInstance): Promise<void> {
 	const ip = self.config.ip
-	const port = 23
+	const port = self.config.port
 
 	if (self.config.ip && self.config.ip !== '') {
 		self.log('debug', `Connecting to Device at ${ip}:${port}`)
@@ -24,7 +24,11 @@ export async function InitConnection(self: KXWellInstance): Promise<void> {
 		self.socket?.on('data', (data: any) => {
 			try {
 				buffer += data.toString()
-				ProcessData(self, buffer)
+				//if we receive a carriage return, process the buffer and reset it
+				if (buffer.endsWith('\r')) {
+					ProcessData(self, buffer)
+					buffer = ''
+				}
 			} catch (e) {
 				self.log('error', `Error parsing data: ${e}`)
 			}
@@ -58,8 +62,8 @@ function RequestData(self: KXWellInstance): void {
 }
 
 export function SendCommand(self: KXWellInstance, cmd: string, data: string) {
-	const addr = String(self.config.address).toUpperCase()
-	const message = `#${addr}${cmd}${data}\x0D`
+	const addr = twoDigit(self.config.address)
+	const message = `#${addr}${cmd}${data}\r`
 
 	if (self.config.verbose) {
 		self.log('debug', `Sending: ${message}`)
@@ -79,4 +83,9 @@ function ProcessData(self: KXWellInstance, msg: any): void {
 
 	self.setVariableValues(variableObj)
 	self.checkFeedbacks()
+}
+
+export function twoDigit(val: number): string {
+	val = Math.max(1, Math.min(99, val))
+	return val.toString().padStart(2, '0')
 }
