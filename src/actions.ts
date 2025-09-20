@@ -80,7 +80,7 @@ export function UpdateActions(self: KXWellInstance): void {
 			},
 		],
 		callback: async (action) => {
-			const speed = 100 - Number(action.options.speed)
+			const speed = Number(action.options.speed)
 			SendCommand(self, 'T', twoDigit(speed))
 		},
 	}
