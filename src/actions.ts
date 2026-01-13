@@ -111,7 +111,7 @@ export function UpdateActions(self: KXWellInstance): void {
 			SendCommand(self, 'Z', twoDigit(speed))
 		},
 	}
-	
+
 	actions.zoomOut = {
 		name: 'Zoom Out',
 		options: [
@@ -243,7 +243,8 @@ export function UpdateActions(self: KXWellInstance): void {
 		name: 'Save Preset',
 		options: [{ type: 'number', id: 'preset', label: 'Preset #', default: 1, min: 0, max: 99 }],
 		callback: async (action) => {
-			SendCommand(self, 'M', twoDigit(Number(action.options.preset)))
+			const presetNum = Number(action.options.preset) - 1
+			SendCommand(self, 'M', twoDigit(presetNum))
 		},
 	}
 
@@ -251,7 +252,8 @@ export function UpdateActions(self: KXWellInstance): void {
 		name: 'Recall Preset',
 		options: [{ type: 'number', id: 'preset', label: 'Preset #', default: 1, min: 0, max: 99 }],
 		callback: async (action) => {
-			SendCommand(self, 'R', twoDigit(Number(action.options.preset)))
+			const presetNum = Number(action.options.preset) - 1
+			SendCommand(self, 'R', twoDigit(presetNum))
 		},
 	}
 
